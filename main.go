@@ -4,29 +4,46 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
+	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"pokemon-api/database"
 )
 
-/*func addNewPokemon(w http.ResponseWriter, r *http.Request) {
-	var pokemon database.Pokemon
+func addNewPokemon(w http.ResponseWriter, r *http.Request) {
 	requestBody, _ := ioutil.ReadAll(r.Body)
+	var pokemon database.Pokemon
+
 	json.Unmarshal(requestBody, &pokemon)
-	database.PokemonDb = append(database.PokemonDb, pokemon)
+	found := false
+	for i := 0; i < len(database.PokemonDb); i++ {
+		if database.PokemonDb[i] == pokemon {
+			found = true
+			w.WriteHeader(http.StatusNotModified)
+			return
+		}
+	}
+	if !found {
+		database.PokemonDb = append(database.PokemonDb, pokemon)
+	}
 	w.WriteHeader(http.StatusOK)
-}*/
+}
 
 func getAllPokemons(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(database.PokemonDb)
 }
 
 func handleRequests() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8081"
+	}
 	myRouter := mux.NewRouter().StrictSlash(true)
 	myRouter.Use(commonMiddleware)
 	myRouter.HandleFunc("/pokemons", getAllPokemons).Methods("GET")
-	//myRouter.HandleFunc("/pokemon/add", addNewPokemon).Methods("POST")
-	log.Fatal(http.ListenAndServe(":10000", myRouter))
+	myRouter.HandleFunc("/pokemons", addNewPokemon).Methods("POST")
+	log.Fatal(http.ListenAndServe(":"+port, myRouter))
 }
 
 func commonMiddleware(next http.Handler) http.Handler {

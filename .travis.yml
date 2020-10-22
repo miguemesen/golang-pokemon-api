@@ -1,3 +1,9 @@
 language: go
 env:
   GO111MODULE=on
+deploy:
+  provider: heroku
+  api_key:
+    secure: "BAYb4p5X6vOgihW4wJOGlbqus7D80+BeqrUKGStwZRs7IebbCzEAT/Y7QgN2I8Y8TfUHny/gQqMcgADEiK+Ko3D07JZVRNFmsqnAneX8W1l+KJKtGuPbVumZoCPVLMmO79yWr3+aUmH4UGyEwUMyJchrvmvCt9k0XP1NrWlZUPEed9dncplzvhFzn8JpkLgecVivEzSCvMe7rYB0yk6UXvudH610QjSF5gerKuN6cPxTaFuN2EKiuL+fDz6bX+E8ynk02NeyN9lzFL6ID0kxj/ola8tUmxEpIXb2Gb+T/1OLAE/5f/uLL+LoXa/ltrQI4qFcKLw3tA6+oOjSuHWG7f3+a1Uui+S0IQasGGyquwJMoeLrHMq08e6jjflxTMtS8BHncFDVd4NrWm/2nf54kqe76vhorpmYwI2NaqaNWrlGspCyFK0Tfv54Us2kbXEO5+rw0rrcKZfi12iTC21uFVZorPLmdMNJ25JhWMMNczg1Mhc6sdTUXK5VZgDcIvZ01JTQ494mhi8hGSpb08JEMly3ZRX4dnLZHJZqkt3xLoXG21JidHSt1rtI9Mr7YwFGgiLYUfNpdq7vy0L1l5AuWgAdUN/ZwV4gXRJxqlskXV8nU/DqBqO0cdlJzlb8BU8YhYYbL7Se0rqkS+OuMVhoyJx1L18uxw/WYc5s4OR763c="
+  app:
+    master: golang-pokemon-api

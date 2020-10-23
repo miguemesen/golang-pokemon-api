@@ -15,8 +15,11 @@ func addNewPokemon(w http.ResponseWriter, r *http.Request) {
 	requestBody, _ := ioutil.ReadAll(r.Body)
 	var pokemon database.Pokemon
 
-	data := []byte(requestBody)
-	json.Unmarshal(data, &pokemon)
+	err := json.Unmarshal(requestBody, &pokemon)
+	if err != nil {
+		fmt.Println("error:", err)
+	}
+
 	found := false
 	for i := 0; i < len(database.PokemonDb); i++ {
 		if database.PokemonDb[i] == pokemon {

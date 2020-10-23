@@ -1,6 +1,10 @@
 language: go
 env:
   GO111MODULE=on
+
+script:
+  - make lint test
+
 deploy:
   provider: heroku
   api_key:

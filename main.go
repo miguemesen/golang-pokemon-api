@@ -35,7 +35,10 @@ func addNewPokemon(w http.ResponseWriter, r *http.Request) {
 }
 
 func getAllPokemons(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(database.PokemonDb)
+	err := json.NewEncoder(w).Encode(database.PokemonDb)
+	if err != nil {
+		fmt.Println("error:", err)
+	}
 }
 
 func handleRequests() {

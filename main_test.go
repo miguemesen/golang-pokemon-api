@@ -1,16 +1,14 @@
 package main
 
 import (
+	"github.com/gorilla/mux"
 	"github.com/stretchr/testify/assert"
+	"log"
+	"net/http"
+	"net/http/httptest"
 	"testing"
 )
 
-func TestXd(t *testing.T) {
-	total := sum(5, 5)
-	assert.Equal(t, 10, total)
-}
-
-/*
 func Router() *mux.Router {
 	router := mux.NewRouter()
 	router.HandleFunc("/", getAllPokemons).Methods("GET")
@@ -32,4 +30,4 @@ func TestGetAllPokemonsBody(t *testing.T) {
 	response := httptest.NewRecorder()
 	Router().ServeHTTP(response, request)
 	assert.JSONEq(t, "[{\"Id\":\"1\",\"Name\":\"Pikachu\",\"Type\":\"Electric\"},{\"Id\":\"2\",\"Name\":\"Charmeleon\",\"Type\":\"Fire\"}]", response.Body.String(), "OK")
-}*/
+}

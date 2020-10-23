@@ -1,8 +1,8 @@
 package main
 
-/*
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/gorilla/mux"
 	"io/ioutil"
 	"log"
@@ -51,13 +51,9 @@ func commonMiddleware(next http.Handler) http.Handler {
 		w.Header().Add("Content-Type", "application/json")
 		next.ServeHTTP(w, r)
 	})
-}*/
-
-func sum(x int, y int) int {
-	return x + y
 }
 
 func main() {
-	/*	fmt.Println("Pokemon Rest API")
-		handleRequests()*/
+	fmt.Println("Pokemon Rest API")
+	handleRequests()
 }

@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 )
 
@@ -29,6 +30,7 @@ func TestGetAllPokemonsBody(t *testing.T) {
 	request, _ := http.NewRequest("GET", "/", nil)
 	response := httptest.NewRecorder()
 	Router().ServeHTTP(response, request)
+	log.Println(response.Body.String())
 	assert.JSONEq(t, "[{\"Id\":\"1\",\"Name\":\"Pikachu\",\"Type\":\"Electric\"},{\"Id\":\"2\",\"Name\":\"Charmeleon\",\"Type\":\"Fire\"}]", response.Body.String(), "OK")
 }
 
@@ -38,6 +40,12 @@ func Router2() *mux.Router {
 	return router
 }
 
-func TestAddNewPokemon(t *testing.T) {
-
+func TestAddNewPokemonPOST(t *testing.T) {
+	r := strings.NewReader("{\"Id\":\"3\",\"Name\":\"Charizard\",\"Type\":\"Fire\"}")
+	log.Println(r)
+	request, _ := http.NewRequest("POST", "/", r)
+	response := httptest.NewRecorder()
+	Router2().ServeHTTP(response, request)
+	log.Println(response.Body.String())
+	assert.Equal(t, "", response.Body.String())
 }

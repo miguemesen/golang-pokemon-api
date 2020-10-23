@@ -31,3 +31,13 @@ func TestGetAllPokemonsBody(t *testing.T) {
 	Router().ServeHTTP(response, request)
 	assert.JSONEq(t, "[{\"Id\":\"1\",\"Name\":\"Pikachu\",\"Type\":\"Electric\"},{\"Id\":\"2\",\"Name\":\"Charmeleon\",\"Type\":\"Fire\"}]", response.Body.String(), "OK")
 }
+
+func Router2() *mux.Router {
+	router := mux.NewRouter()
+	router.HandleFunc("/", addNewPokemon).Methods("POST")
+	return router
+}
+
+func TestAddNewPokemon(t *testing.T) {
+
+}

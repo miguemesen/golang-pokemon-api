@@ -23,12 +23,15 @@ func addNewPokemon(w http.ResponseWriter, r *http.Request) {
 	found := false
 	for i := 0; i < len(database.PokemonDb); i++ {
 		if database.PokemonDb[i] == pokemon {
+			fmt.Println(found)
 			found = true
+			fmt.Println(found)
 			w.WriteHeader(http.StatusNotModified)
 			return
 		}
 	}
 	if !found {
+		fmt.Println(found)
 		database.PokemonDb = append(database.PokemonDb, pokemon)
 	}
 	w.WriteHeader(http.StatusOK)

@@ -25,12 +25,13 @@ func TestGetAllPokemonsCode(t *testing.T) {
 	assert.Equal(t, 200, response.Code, "OK")
 }
 
-// Expect only two pokemon in the body
+// Expect only two pokemon in the body and 200 code meaning it was successful
 func TestGetAllPokemonsBody(t *testing.T) {
 	request, _ := http.NewRequest("GET", "/", nil)
 	response := httptest.NewRecorder()
 	Router().ServeHTTP(response, request)
 	log.Println(response.Body.String())
+	assert.Equal(t, 200, response.Code, "OK")
 	assert.JSONEq(t, "[{\"Id\":\"1\",\"Name\":\"Pikachu\",\"Type\":\"Electric\"},{\"Id\":\"2\",\"Name\":\"Charmeleon\",\"Type\":\"Fire\"}]", response.Body.String(), "OK")
 }
 
@@ -40,6 +41,7 @@ func Router2() *mux.Router {
 	return router
 }
 
+// Expect an empty response to a POST request and 200 code meaning it was successful
 func TestAddNewPokemonPOST(t *testing.T) {
 	r := strings.NewReader("{\"Id\":\"3\",\"Name\":\"Charizard\",\"Type\":\"Fire\"}")
 	log.Println(r)
@@ -47,5 +49,6 @@ func TestAddNewPokemonPOST(t *testing.T) {
 	response := httptest.NewRecorder()
 	Router2().ServeHTTP(response, request)
 	log.Println(response.Body.String())
+	assert.Equal(t, 200, response.Code, "OK")
 	assert.Equal(t, "", response.Body.String())
 }
